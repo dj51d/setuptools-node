@@ -7,7 +7,15 @@ from .node import InstallNode, NodeCommand, NpmInstall
 
 
 class Gulp(NodeCommand):
-    '''Setuptools command for running gulp'''
+    '''Setuptools command for running gulp
+
+    Usage in setup.py::
+
+        from setuptools_node import Gulp
+
+        setup(cmdclass={ 'gulp': Gulp })
+
+    '''
     description = 'Run gulp'
     user_options = NodeCommand.base_options + [
         ('task=', None, 'Specify the gulp task to run')
@@ -38,6 +46,12 @@ class GulpBuild(build_py):
     Replace build_py with this command to have node automatically installed
     (if required), and have gulp run to execute the default task before
     proceeding with the regular build_py tasks.
+
+    Usage in setup.py::
+
+        from setuptools_node import GulpBuild
+
+        setup(cmdclass={ 'build_py': GulpBuild })
 
     '''
     def run_setuptools_command(self, command):

@@ -64,6 +64,19 @@ class NodeCommand(Command):
 
 
 class NpmInstall(NodeCommand):
+    '''Command for installing packages with npm
+
+    By default packages will be installed with ``npm install``, if the
+    ``--use-ci`` argument is given, ``npm ci`` will be used instead.  In
+    addition the common options from `:py:class:NodeCommand` are supported.
+
+    Usage in setup.py::
+
+        from setuptools_node import NpmInstall
+
+        setup(cmdclass={ 'npm_install': NpmInstall })
+
+    '''
     description = 'Run npm install'
     user_options = NodeCommand.base_options + [
         ('use-ci', None, 'Use npm ci instead of npm install')
@@ -90,6 +103,15 @@ class NpmInstall(NodeCommand):
 
 
 class InstallNode(NodeCommand):
+    '''Command to install a local copy of node.js
+
+    Usage in setup.py::
+
+        from setuptools_node import InstallNode
+
+        setup(cmdclass={ 'install_node': InstallNode })
+
+    '''
     description = 'Install a local copy of node.js'
     user_options = NodeCommand.base_options + [
         ('node-dist-url=', None, 'Base URL to fetch Node from'),
