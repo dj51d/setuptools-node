@@ -79,3 +79,4 @@ class GulpBuild(build_py):
         self.run_setuptools_command(InstallNode)
         self.run_setuptools_command(NpmInstall)
         self.run_setuptools_command(Gulp, task=self.task)
+        super().run()
