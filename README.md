@@ -79,7 +79,8 @@ The `Gulp` command runs the gulp build tool
 
 ### Gulp Options
 
-* `--task` Specify the task to run insteaed of the default
+* `--task` Specify the task to run insteaed of the default.  Multiple tasks may
+  be specified as a comma separated list.
 
 setup.py:
 
@@ -95,6 +96,7 @@ Use:
 ```sh
 user@host $ python setup.py gulp  # run default task
 user@host $ python setup.py gulp --task foo  # run the 'foo' task
+user@host $ python setup.py gupl --task clean,foo # run 'clean' and 'foo' tasks
 ```
 
 ## GulpBuild
@@ -106,6 +108,19 @@ in the package built by `build_py`.
 
 Node will be installed if it is not found, and modules will be
 installed/updated.
+
+### GulpBuild Options
+
+* `--task` Specify the task to run insteaed of the default.  Multiple tasks may
+  be specified as a comma separated list.
+
+Since you don't generally run `build_py` directly, you will need to add any
+arguments to the setup.cfg:
+
+```ini
+[build_py]
+task=myGulpTask
+```
 
 setup.py:
 

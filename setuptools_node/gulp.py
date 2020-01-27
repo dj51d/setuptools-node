@@ -30,11 +30,12 @@ class Gulp(NodeCommand):
 
     def run(self):
         gulp = self.node_modules / 'gulp' / 'bin' / 'gulp.js'
+        tasks = self.task.split(',')
         args = [
             str(self.node.resolve()),
             str(gulp.resolve()),
-            self.task
         ]
+        args = args + tasks
         res = subprocess.run(args)
         if res.returncode != 0:
             raise DistutilsError('Failed to run gulp {}'.format(self.task))
@@ -54,14 +55,27 @@ class GulpBuild(build_py):
         setup(cmdclass={ 'build_py': GulpBuild })
 
     '''
-    def run_setuptools_command(self, command):
+    user_options = build_py.user_options + [
+        ('task=', None, 'Specify the gulp task(s) to run')
+    ]
+
+    def initialize_options(self):
+        self.task = 'default'
+        return super().initialize_options()
+
+    def finalize_options(self):
+        return super().finalize_options()
+
+    def run_setuptools_command(self, command, **params):
         cmd = command(self.distribution)
         cmd.initialize_options()
+        if params:
+            for key, value in params.items():
+                setattr(cmd, key, value)
         cmd.finalize_options()
         cmd.run()
 
     def run(self):
         self.run_setuptools_command(InstallNode)
         self.run_setuptools_command(NpmInstall)
-        self.run_setuptools_command(Gulp)
-        super().run()
+        self.run_setuptools_command(Gulp, task=self.task)
