@@ -1,10 +1,16 @@
 from setuptools import find_packages, setup
 
 
+with open('README.md', 'r') as f:
+    long_description = f.read()
+
+
 setup(
     name='setuptools_node',
-    version='0.1.1',
+    version='0.1.2',
     description='Setuptools extensions for working with node',
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     url='https://github.com/dj51d/setuptools-node',
     author='Dan Johnson',
     author_email='dj51d@warbirdsurvivors.com',
