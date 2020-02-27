@@ -12,3 +12,15 @@ def chdir(new_dir):
         yield
     finally:
         os.chdir(cur_dir)
+
+
+class RunnerMixin(object):
+    """Mixin for setuptools commands to invoke other commands"""
+    def run_setuptools_command(self, command, **params):
+        cmd = command(self.distribution)
+        cmd.initialize_options()
+        if params:
+            for key, value in params.items():
+                setattr(cmd, key, value)
+        cmd.finalize_options()
+        cmd.run()

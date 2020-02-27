@@ -4,6 +4,7 @@ from distutils.errors import DistutilsError
 from setuptools.command.build_py import build_py
 import subprocess
 from .node import InstallNode, NodeCommand, NpmInstall
+from .util import RunnerMixin
 
 
 class Gulp(NodeCommand):
@@ -41,7 +42,7 @@ class Gulp(NodeCommand):
             raise DistutilsError('Failed to run gulp {}'.format(self.task))
 
 
-class GulpBuild(build_py):
+class GulpBuild(build_py, RunnerMixin):
     '''Custom build_py command that runs gulp.
 
     Replace build_py with this command to have node automatically installed
@@ -65,15 +66,6 @@ class GulpBuild(build_py):
 
     def finalize_options(self):
         return super().finalize_options()
-
-    def run_setuptools_command(self, command, **params):
-        cmd = command(self.distribution)
-        cmd.initialize_options()
-        if params:
-            for key, value in params.items():
-                setattr(cmd, key, value)
-        cmd.finalize_options()
-        cmd.run()
 
     def run(self):
         self.run_setuptools_command(InstallNode)
