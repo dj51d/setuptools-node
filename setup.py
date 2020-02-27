@@ -7,7 +7,7 @@ with open('README.md', 'r') as f:
 
 setup(
     name='setuptools_node',
-    version='0.1.4',
+    version='0.2.0',
     description='Setuptools extensions for working with node',
     long_description=long_description,
     long_description_content_type='text/markdown',
