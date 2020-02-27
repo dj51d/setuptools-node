@@ -12,7 +12,7 @@ import tarfile
 import urllib.request
 import zipfile
 
-from .util import chdir
+from .util import chdir, RunnerMixin
 
 
 class NodeCommand(Command):
@@ -63,7 +63,7 @@ class NodeCommand(Command):
         return self.node is not None
 
 
-class NpmInstall(NodeCommand):
+class NpmInstall(NodeCommand, RunnerMixin):
     '''Command for installing packages with npm
 
     By default packages will be installed with ``npm install``, if the
@@ -91,6 +91,9 @@ class NpmInstall(NodeCommand):
 
     def run(self):
         npm = self.node_lib / 'npm' / 'bin' / 'npm-cli.js'
+        if not self.node:
+            self.run_setuptools_command(InstallNode)
+            self.finalize_options()
         args = [
             str(self.node.resolve()),
             str(npm.resolve()),

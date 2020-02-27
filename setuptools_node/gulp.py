@@ -7,7 +7,7 @@ from .node import InstallNode, NodeCommand, NpmInstall
 from .util import RunnerMixin
 
 
-class Gulp(NodeCommand):
+class Gulp(NodeCommand, RunnerMixin):
     '''Setuptools command for running gulp
 
     Usage in setup.py::
@@ -32,6 +32,11 @@ class Gulp(NodeCommand):
     def run(self):
         gulp = self.node_modules / 'gulp' / 'bin' / 'gulp.js'
         tasks = self.task.split(',')
+        if not self.node:
+            self.run_setuptools_command(InstallNode)
+            self.finalize_options()
+        if not gulp.is_file():
+            self.run_setuptools_command(NpmInstall)
         args = [
             str(self.node.resolve()),
             str(gulp.resolve()),
