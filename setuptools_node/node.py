@@ -143,7 +143,7 @@ class InstallNode(NodeCommand):
     def initialize_options(self):
         super().initialize_options()
         self.node_dist_url = 'https://nodejs.org/dist/'
-        self.node_version = 'v12.14.1'
+        self.node_version = 'v19.6.0'
         self.cache_dir = self.base_dir / 'cache'
 
     def finalize_options(self):
