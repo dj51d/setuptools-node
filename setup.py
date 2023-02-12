@@ -16,7 +16,7 @@ setup(
     author_email='dj51d@warbirdsurvivors.com',
     packages=find_packages(),
     install_requires=[
-        'setuptools>=40.0.0'
+        'setuptools>=65.5.1'
     ],
     python_requires='>=3.6',
     classifiers=[
