@@ -1,0 +1,4 @@
+flake8==3.7.9
+pylint==2.4.4
+setuptools==65.5.1
+wheel==0.38.1

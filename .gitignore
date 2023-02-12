@@ -7,4 +7,5 @@ node/*
 node_modules/*
 build/*
 dist/*
-setuptools-node.egg-info/*
+setuptools_node.egg-info/*
+venv/*
