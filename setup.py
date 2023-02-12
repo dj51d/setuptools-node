@@ -47,7 +47,7 @@ class Clean(Command):
 
 setup(
     name='setuptools_node',
-    version='0.3.0.dev1',
+    version='0.3.0',
     description='Setuptools extensions for working with node',
     long_description=long_description,
     long_description_content_type='text/markdown',
